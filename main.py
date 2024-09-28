@@ -18,7 +18,7 @@ star_destroyer = pygame.transform.scale(star_destroyer, (70, 400))
 
 # Set up game variables
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 20
 GRAVITY = 0.6
 FLAP_STRENGTH = -9
 x_wing_x, x_wing_y = 50, HEIGHT // 2
@@ -46,11 +46,12 @@ pipes.append(create_pipe())
 
 # Check for collisions
 def check_collision():
-    global game_over
     x_wing_rect = pygame.Rect(x_wing_x, x_wing_y, 50, 35)
     for pipe_top, pipe_bottom in pipes:
+        # Check if the X-Wing collides with the top or bottom pipe
         if x_wing_rect.colliderect(pipe_top) or x_wing_rect.colliderect(pipe_bottom):
             return True
+    # Check if the X-Wing touches the top of the screen (Y < 0) or goes below the screen (Y > HEIGHT)
     if x_wing_y < 0 or x_wing_y > HEIGHT:
         return True
     return False
